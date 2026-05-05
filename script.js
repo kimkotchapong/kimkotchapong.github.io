@@ -1,4 +1,30 @@
 // ======================================
+// THEME TOGGLE
+// ======================================
+const themeToggle = document.getElementById('theme-toggle');
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+}
+
+function getPreferredTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) return saved;
+  return 'light'; // default light
+}
+
+// Initialize theme
+setTheme(getPreferredTheme());
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+}
+
+// ======================================
 // MOBILE MENU
 // ======================================
 const hamburger = document.getElementById('hamburger');
@@ -36,7 +62,6 @@ if (mobileClose) {
   mobileClose.addEventListener('click', closeSidebar);
 }
 
-// Close sidebar when nav link is clicked (mobile)
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => {
     if (window.innerWidth <= 768) {
@@ -91,7 +116,6 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe cards for scroll reveal
 document.querySelectorAll('.skill-category, .experience-card, .project-card, .award-card, .education-card').forEach(card => {
   card.style.opacity = '0';
   card.style.transform = 'translateY(20px)';

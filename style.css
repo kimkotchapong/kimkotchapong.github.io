@@ -1,7 +1,34 @@
 /* ======================================
-   DESIGN SYSTEM
+   DESIGN SYSTEM — LIGHT THEME (DEFAULT)
    ====================================== */
 :root {
+  --bg-primary: #f8f9fc;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f0f4ff;
+  --text-primary: #334155;
+  --text-secondary: #64748b;
+  --text-heading: #0f172a;
+  --accent: #2563eb;
+  --accent-dim: rgba(37, 99, 235, 0.08);
+  --accent-glow: rgba(37, 99, 235, 0.12);
+  --highlight: #2563eb;
+  --border-color: rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.08);
+  --tag-bg: rgba(37, 99, 235, 0.08);
+  --tag-color: #2563eb;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --sidebar-width: 300px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ======================================
+   DARK THEME
+   ====================================== */
+[data-theme="dark"] {
   --bg-primary: #0a192f;
   --bg-secondary: #112240;
   --bg-card: #112240;
@@ -13,10 +40,12 @@
   --accent-dim: rgba(100, 255, 218, 0.1);
   --accent-glow: rgba(100, 255, 218, 0.15);
   --highlight: #64ffda;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --sidebar-width: 320px;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --border-color: rgba(100, 255, 218, 0.08);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.3);
+  --tag-bg: rgba(100, 255, 218, 0.1);
+  --tag-color: #64ffda;
 }
 
 /* ======================================
@@ -40,6 +69,7 @@ body {
   line-height: 1.7;
   font-size: 16px;
   overflow-x: hidden;
+  transition: background-color var(--transition), color var(--transition);
 }
 
 a {
@@ -49,7 +79,7 @@ a {
 }
 
 a:hover {
-  color: #a8ffec;
+  opacity: 0.8;
 }
 
 ::selection {
@@ -61,7 +91,7 @@ a:hover {
    SCROLLBAR
    ====================================== */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -69,12 +99,65 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-card);
-  border-radius: 4px;
+  background: var(--text-secondary);
+  border-radius: 3px;
+  opacity: 0.4;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+/* ======================================
+   THEME TOGGLE
+   ====================================== */
+.theme-toggle {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 300;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  position: absolute;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.theme-toggle .icon-moon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.theme-toggle .icon-sun {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+[data-theme="dark"] .theme-toggle .icon-moon {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* ======================================
@@ -87,76 +170,86 @@ a:hover {
   width: var(--sidebar-width);
   height: 100vh;
   background: var(--bg-secondary);
-  border-right: 1px solid rgba(100, 255, 218, 0.08);
+  border-right: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
   overflow-y: auto;
+  box-shadow: var(--shadow-sm);
+  transition: background-color var(--transition), border-color var(--transition);
 }
 
 .sidebar-inner {
-  padding: 40px 32px;
+  padding: 32px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 20px;
+  gap: 16px;
+  width: 100%;
 }
 
 .mobile-close {
   display: none;
 }
 
-/* Profile Photo */
+/* Profile Photo — FIXED OVERFLOW */
 .profile-photo-wrapper {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  min-height: 120px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid var(--accent);
-  box-shadow: 0 0 30px var(--accent-glow);
+  box-shadow: 0 0 20px var(--accent-glow);
   transition: transform var(--transition), box-shadow var(--transition);
+  flex-shrink: 0;
 }
 
 .profile-photo-wrapper:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 50px var(--accent-glow);
+  box-shadow: 0 0 35px var(--accent-glow);
 }
 
 .profile-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 /* Sidebar Text */
 .sidebar-name {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-heading);
   letter-spacing: -0.02em;
+  transition: color var(--transition);
 }
 
 .sidebar-title {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--accent);
   font-weight: 500;
+  transition: color var(--transition);
 }
 
 .sidebar-bio {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   line-height: 1.6;
+  transition: color var(--transition);
 }
 
 /* Sidebar Links */
 .sidebar-links {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
 }
 
@@ -164,10 +257,10 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: 8px;
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
   transition: all var(--transition);
 }
@@ -176,6 +269,7 @@ a:hover {
   background: var(--accent-dim);
   color: var(--accent);
   transform: translateX(4px);
+  opacity: 1;
 }
 
 .sidebar-link svg {
@@ -186,14 +280,14 @@ a:hover {
 .sidebar-contact {
   width: 100%;
   padding-top: 8px;
-  border-top: 1px solid rgba(100, 255, 218, 0.08);
+  border-top: 1px solid var(--border-color);
 }
 
 .email-link {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-family: var(--font-mono);
   color: var(--text-secondary);
   transition: color var(--transition);
@@ -201,27 +295,28 @@ a:hover {
 
 .email-link:hover {
   color: var(--accent);
+  opacity: 1;
 }
 
 /* Sidebar Nav */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   width: 100%;
-  margin-top: 8px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(100, 255, 218, 0.08);
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: 8px;
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
   transition: all var(--transition);
   position: relative;
@@ -240,6 +335,7 @@ a:hover {
 .nav-link.active {
   color: var(--accent);
   background: var(--accent-dim);
+  opacity: 1;
 }
 
 .nav-link:hover::before,
@@ -260,14 +356,14 @@ a:hover {
 .main-content {
   margin-left: var(--sidebar-width);
   padding: 60px 80px;
-  max-width: 900px;
+  max-width: 880px;
 }
 
 /* ======================================
    SECTIONS
    ====================================== */
 .section {
-  margin-bottom: 100px;
+  margin-bottom: 90px;
   animation: fadeInUp 0.6s ease-out both;
 }
 
@@ -290,26 +386,27 @@ a:hover {
 }
 
 .section-heading {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-heading);
-  margin-bottom: 32px;
+  margin-bottom: 28px;
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: color var(--transition);
 }
 
 .section-heading::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, rgba(100, 255, 218, 0.3), transparent);
+  background: linear-gradient(90deg, var(--border-color), transparent);
   margin-left: 16px;
 }
 
 .heading-number {
   font-family: var(--font-mono);
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--accent);
   font-weight: 500;
 }
@@ -320,13 +417,13 @@ a:hover {
 .about-content p {
   margin-bottom: 16px;
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1.8;
 }
 
 .highlight {
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* ======================================
@@ -334,32 +431,33 @@ a:hover {
    ====================================== */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
 }
 
 .skill-category {
   background: var(--bg-card);
-  border: 1px solid rgba(100, 255, 218, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 24px;
+  padding: 22px;
   transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .skill-category:hover {
-  border-color: rgba(100, 255, 218, 0.2);
+  border-color: var(--accent);
   transform: translateY(-4px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .skill-category-title {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-heading);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .skill-category-title svg {
@@ -371,11 +469,11 @@ a:hover {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 }
 
 .skill-list li {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   padding-left: 20px;
   position: relative;
@@ -394,34 +492,35 @@ a:hover {
    ====================================== */
 .experience-card {
   background: var(--bg-card);
-  border: 1px solid rgba(100, 255, 218, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px;
+  padding: 28px;
   transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .experience-card:hover {
-  border-color: rgba(100, 255, 218, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
 
 .exp-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
   gap: 8px;
 }
 
 .exp-title {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--text-heading);
 }
 
 .exp-company {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-secondary);
   margin-top: 4px;
 }
@@ -432,27 +531,27 @@ a:hover {
 
 .exp-date {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .exp-description {
   color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 16px;
+  font-size: 0.88rem;
+  margin-bottom: 14px;
 }
 
 .exp-list {
   list-style: none;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .exp-list li {
   padding-left: 24px;
   position: relative;
   margin-bottom: 10px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -472,18 +571,18 @@ a:hover {
 
 .tag {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   padding: 4px 12px;
   border-radius: 20px;
-  background: var(--accent-dim);
-  color: var(--accent);
+  background: var(--tag-bg);
+  color: var(--tag-color);
   font-weight: 500;
   letter-spacing: 0.02em;
   transition: all var(--transition);
 }
 
 .tag:hover {
-  background: rgba(100, 255, 218, 0.2);
+  opacity: 0.8;
 }
 
 /* ======================================
@@ -491,12 +590,13 @@ a:hover {
    ====================================== */
 .project-card {
   background: var(--bg-card);
-  border: 1px solid rgba(100, 255, 218, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px;
+  padding: 28px;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .project-card::before {
@@ -506,7 +606,7 @@ a:hover {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent), #6366f1, var(--accent));
+  background: linear-gradient(90deg, var(--accent), #8b5cf6, var(--accent));
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
@@ -517,27 +617,33 @@ a:hover {
 }
 
 .project-card:hover {
-  border-color: rgba(100, 255, 218, 0.2);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
 }
 
 .project-badge {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   padding: 4px 14px;
   border-radius: 20px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(234, 88, 12, 0.12));
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  margin-bottom: 14px;
+}
+
+[data-theme="dark"] .project-badge {
   background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 165, 0, 0.15));
   color: #ffd700;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  margin-bottom: 16px;
+  border-color: rgba(255, 215, 0, 0.3);
 }
 
 .project-title {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .project-title a {
@@ -550,6 +656,7 @@ a:hover {
 
 .project-title a:hover {
   color: var(--accent);
+  opacity: 1;
 }
 
 .project-title a svg {
@@ -564,19 +671,19 @@ a:hover {
 
 .project-description {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 24px;
+  font-size: 0.9rem;
+  margin-bottom: 22px;
   line-height: 1.7;
 }
 
 .project-features {
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .project-features h4,
 .project-tech h4 {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -590,8 +697,8 @@ a:hover {
 .project-features li {
   padding-left: 24px;
   position: relative;
-  margin-bottom: 12px;
-  font-size: 0.9rem;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -608,8 +715,8 @@ a:hover {
 }
 
 .project-tech {
-  padding-top: 16px;
-  border-top: 1px solid rgba(100, 255, 218, 0.08);
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
 }
 
 /* ======================================
@@ -618,55 +725,56 @@ a:hover {
 .awards-grid {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .award-card {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   background: var(--bg-card);
-  border: 1px solid rgba(100, 255, 218, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 24px;
+  padding: 22px;
   transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .award-card:hover {
-  border-color: rgba(100, 255, 218, 0.2);
-  transform: translateX(8px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+  transform: translateX(6px);
+  box-shadow: var(--shadow-md);
 }
 
 .award-icon {
-  font-size: 2rem;
+  font-size: 1.8rem;
   flex-shrink: 0;
   display: flex;
   align-items: flex-start;
-  padding-top: 4px;
+  padding-top: 2px;
 }
 
 .award-title {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-heading);
   margin-bottom: 4px;
 }
 
 .award-issuer {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--accent);
   font-weight: 500;
 }
 
 .award-date {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
 .award-description {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -676,24 +784,25 @@ a:hover {
    ====================================== */
 .education-card {
   display: flex;
-  gap: 24px;
+  gap: 22px;
   align-items: center;
   background: var(--bg-card);
-  border: 1px solid rgba(100, 255, 218, 0.08);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  padding: 32px;
+  padding: 28px;
   transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
 }
 
 .education-card:hover {
-  border-color: rgba(100, 255, 218, 0.2);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
 
 .edu-logo {
   flex-shrink: 0;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -702,33 +811,33 @@ a:hover {
 }
 
 .edu-degree {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--text-heading);
 }
 
 .edu-school {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--accent);
   font-weight: 500;
   margin-bottom: 4px;
 }
 
 .edu-major {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
 }
 
 .edu-date {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-secondary);
   margin-top: 4px;
 }
 
 .edu-gpa {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--accent);
   font-weight: 500;
   margin-top: 4px;
@@ -739,22 +848,22 @@ a:hover {
    ====================================== */
 .footer {
   text-align: center;
-  padding: 40px 0;
-  border-top: 1px solid rgba(100, 255, 218, 0.08);
+  padding: 36px 0;
+  border-top: 1px solid var(--border-color);
   margin-top: 40px;
 }
 
 .footer p {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-secondary);
   margin-bottom: 4px;
 }
 
 .footer-note {
   font-family: var(--font-mono);
-  font-size: 0.72rem !important;
+  font-size: 0.7rem !important;
   color: var(--text-secondary);
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 /* ======================================
@@ -776,7 +885,7 @@ a:hover {
 
   .sidebar.open {
     transform: translateX(0);
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
   }
 
   .mobile-close {
@@ -802,19 +911,20 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
+    padding: 14px 20px;
     background: var(--bg-secondary);
-    border-bottom: 1px solid rgba(100, 255, 218, 0.08);
+    border-bottom: 1px solid var(--border-color);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 150;
+    box-shadow: var(--shadow-sm);
   }
 
   .mobile-logo {
     font-family: var(--font-mono);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: var(--accent);
   }
@@ -831,7 +941,7 @@ a:hover {
 
   .hamburger span {
     display: block;
-    width: 24px;
+    width: 22px;
     height: 2px;
     background: var(--text-primary);
     border-radius: 1px;
@@ -840,11 +950,11 @@ a:hover {
 
   .main-content {
     margin-left: 0;
-    padding: 90px 24px 40px;
+    padding: 80px 20px 40px;
   }
 
   .section {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
   }
 
   .skills-grid {
@@ -865,6 +975,13 @@ a:hover {
     align-items: center;
     text-align: center;
   }
+
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 42px;
+    height: 42px;
+  }
 }
 
 /* ======================================
@@ -877,7 +994,7 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(10, 25, 47, 0.8);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 190;
   backdrop-filter: blur(4px);
 }
