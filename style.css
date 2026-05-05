@@ -360,6 +360,13 @@ a:hover {
 }
 
 /* ======================================
+   MOBILE HERO (hidden on desktop)
+   ====================================== */
+.mobile-hero {
+  display: none;
+}
+
+/* ======================================
    MAIN CONTENT
    ====================================== */
 .main-content {
@@ -961,9 +968,48 @@ a:hover {
     flex-direction: column;
   }
 
+  .mobile-hero {
+    display: block;
+    padding: 80px 24px 32px;
+    text-align: center;
+  }
+
+  .mobile-hero-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .mobile-hero .profile-photo-wrapper {
+    width: 160px;
+    height: 160px;
+    min-width: 160px;
+    min-height: 160px;
+  }
+
+  .mobile-hero-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .mobile-hero-links span {
+    color: var(--text-secondary);
+    opacity: 0.4;
+  }
+
+  .mobile-hero-email {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
   .main-content {
     margin-left: 0;
-    padding: 80px 20px 40px;
+    padding: 20px 20px 40px;
   }
 
   .section {
