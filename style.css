@@ -356,7 +356,10 @@ a:hover {
 .main-content {
   margin-left: var(--sidebar-width);
   padding: 60px 80px;
-  max-width: 880px;
+  max-width: 900px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: calc(var(--sidebar-width) + 60px);
 }
 
 /* ======================================
@@ -951,6 +954,7 @@ a:hover {
   .main-content {
     margin-left: 0;
     padding: 80px 20px 40px;
+    padding-left: 20px;
   }
 
   .section {
