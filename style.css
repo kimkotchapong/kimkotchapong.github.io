@@ -51,7 +51,9 @@
 /* ======================================
    RESET & BASE
    ====================================== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -190,7 +192,8 @@ a:hover {
 }
 
 .sidebar-inner {
-  padding: 48px 28px 32px;
+  padding: 160px 28px 32px;
+  /* เปลี่ยนเลข 85px ให้เพิ่ม/ลดได้ตามต้องการเพื่อให้ตรงกับ About */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -227,6 +230,9 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
+  /* ดึงขอบบนสุดของภาพลงมา จะได้ไม่โดนตัดหัว */
+  /* transform: scale(1.15); ปิดการซูมออกไปก่อน หัวจะได้ไม่ขาด */
   display: block;
 }
 
@@ -383,18 +389,36 @@ a:hover {
   animation: fadeInUp 0.6s ease-out both;
 }
 
-.section:nth-child(1) { animation-delay: 0.1s; }
-.section:nth-child(2) { animation-delay: 0.2s; }
-.section:nth-child(3) { animation-delay: 0.3s; }
-.section:nth-child(4) { animation-delay: 0.4s; }
-.section:nth-child(5) { animation-delay: 0.5s; }
-.section:nth-child(6) { animation-delay: 0.6s; }
+.section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.section:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.section:nth-child(6) {
+  animation-delay: 0.6s;
+}
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -628,8 +652,15 @@ a:hover {
 }
 
 @keyframes shimmer {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .project-card:hover {
