@@ -754,6 +754,10 @@ a.tag {
   box-shadow: var(--shadow-md);
 }
 
+.project-media a + a {
+  margin-top: 18px;
+}
+
 .project-media img {
   width: 100%;
   height: auto;
