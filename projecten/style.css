@@ -733,6 +733,33 @@ a.tag {
   line-height: 1.7;
 }
 
+.project-media {
+  margin: 24px 0 28px;
+}
+
+.project-media a {
+  display: block;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  padding: 0;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.project-media a:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.project-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 .project-features {
   margin-bottom: 22px;
 }
@@ -1050,7 +1077,7 @@ a.tag {
 
   .mobile-hero {
     display: block;
-    padding: 56px 24px 24px;
+    padding: 78px 20px 24px;
     text-align: center;
   }
 
@@ -1062,10 +1089,10 @@ a.tag {
   }
 
   .mobile-hero .profile-photo-wrapper {
-    width: 160px;
-    height: 160px;
-    min-width: 160px;
-    min-height: 160px;
+    width: clamp(128px, 38vw, 150px);
+    height: clamp(128px, 38vw, 150px);
+    min-width: 128px;
+    min-height: 128px;
   }
 
   .mobile-hero-links {
@@ -1094,6 +1121,22 @@ a.tag {
 
   .section {
     margin-bottom: 50px;
+  }
+
+  .project-card {
+    overflow: hidden;
+  }
+
+  .project-media {
+    width: 100%;
+    max-width: 100%;
+    margin: 20px 0 24px;
+  }
+
+  .project-media a,
+  .project-media img {
+    width: 100%;
+    max-width: 100%;
   }
 
   .skills-grid {

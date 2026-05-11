@@ -119,7 +119,7 @@
         <div class="about-content">
           <p>I am a <span class="highlight">project engineer with an electrical engineering background</span>, focused on turning technical requirements into workable systems. I work well at the point where field constraints, automation, IoT, documentation, vendors, and software-supported workflows need to come together.</p>
           <p>My strength is <span class="highlight">connecting engineering execution with project coordination</span>: clarifying scope, preparing technical documentation, communicating with stakeholders, understanding site limitations, and following through until a solution can be tested, explained, and maintained.</p>
-          <p>My flagship project is <span class="highlight">VisionMate</span>, an award-winning accessibility platform for visually impaired users in Thailand. It reflects how I approach projects: define the user problem clearly, integrate hardware and software components, validate practical constraints, and deliver a system with real-world impact.</p>
+          <p>My flagship project is <span class="highlight">VisionMate</span>, an award-winning accessibility platform for visually impaired users in Thailand. It reflects how I approach projects: define the user problem clearly, coordinate mobile, cloud, AI, accessibility, and volunteer workflows, validate practical constraints, and deliver a system with real-world impact.</p>
         </div>
       </section>
 
@@ -246,17 +246,29 @@
               </svg>
             </a>
           </h3>
-          <p class="project-description">VisionMate is a Thai-localized Flutter accessibility platform for visually impaired users. It combines on-device computer vision, depth estimation, OCR, voice interaction, AI chat, peer assistance, and an ESP32 companion device so users can understand surroundings, read text, detect obstacles, and request human help from one mobile app. The project won <strong>1st Place</strong> at Thammasat School of Engineering Senior Project presentation. <a href="https://youtu.be/IBXbAliZxeI" target="_blank" rel="noopener">Watch demo video</a>.</p>
+          <p class="project-description">VisionMate is a Thai-localized Flutter accessibility platform for visually impaired users. It guides users by continuously tracking their facing direction during navigation, because blind users cannot rely on visual orientation the way sighted users can. While guiding a route, the app also checks for obstacles, reads documents as easy-to-follow audio tapes, answers questions through an AI chatbot, and connects users with volunteers through community and SOS features. The project won <strong>1st Place</strong> at Thammasat School of Engineering Senior Project presentation. <a href="https://youtu.be/IBXbAliZxeI" target="_blank" rel="noopener">Watch demo video</a>.</p>
+          <div class="exp-tags exp-links">
+            <a class="tag" href="https://youtu.be/IBXbAliZxeI" target="_blank" rel="noopener">Watch VisionMate demo</a>
+          </div>
+
+          <div class="project-media">
+            <a href="../assets/projects/visionmate/poster.png" target="_blank" rel="noopener">
+              <img src="../assets/projects/visionmate/poster.png" alt="VisionMate project poster showing the accessibility app features" loading="lazy" />
+            </a>
+          </div>
 
           <div class="project-features">
             <h4>What It Does & Why It Matters</h4>
             <ul>
-              <li><strong>Real-time safety camera</strong> - detects nearby obstacles and danger zones with YOLO11s object detection and MiDaS depth estimation, then announces warnings through Thai TTS.</li>
-              <li><strong>OCR and document reading</strong> - uses Google ML Kit text recognition and AI-assisted document analysis to help users read signs, labels, images, and files aloud.</li>
+              <li><strong>Direction-aware navigation</strong> - keeps track of where the user is facing and provides guidance that stays useful when the user cannot visually confirm street direction or nearby landmarks.</li>
+              <li><strong>Obstacle checking during navigation</strong> - runs safety checks while route guidance is active, so users can keep moving while still receiving warnings about nearby barriers.</li>
+              <li><strong>Three-level obstacle detection</strong> - supports head-level checks with MiDaS, ground-level checks with ARCore, and detailed scene inspection through Gemini for more complex surroundings.</li>
+              <li><strong>Document-to-audio reading</strong> - extracts text from document files and turns the content into tape-like audio sections so visually impaired users can follow long files more easily.</li>
               <li><strong>Voice-first interaction</strong> - combines speech-to-text, text-to-speech, haptics, volume-button shortcuts, and accessible Thai UI so core workflows can be used without relying on sight.</li>
-              <li><strong>AI assistant</strong> - routes Gemini requests through Firebase Cloud Functions to answer questions, analyze images, and keep paid API keys out of the client app.</li>
-              <li><strong>Peer assistance</strong> - supports community features, chat, push notifications, and Zego-based video calls so users can request help from volunteers.</li>
-              <li><strong>ESP32 companion device</strong> - integrates with an external camera board through UDP discovery, telemetry polling, wake-word events, and HTTP frame capture.</li>
+              <li><strong>AI chatbot and camera mode</strong> - lets users ask questions about everyday situations and use a dedicated camera mode when they need scene understanding without starting navigation.</li>
+              <li><strong>Community and SOS support</strong> - connects visually impaired users with volunteers, forces sound and vibration during SOS even if the phone is muted, and sends the current Google Maps location to trusted volunteer friends.</li>
+              <li><strong>Volunteer location request</strong> - lets trusted volunteers request a user's location when help may be needed; if the user does not respond inside 30 seconds, the app sends the current location automatically.</li>
+              <li><strong>Volunteer safety dashboard</strong> - gives volunteer accounts a dashboard for monitoring assigned visually impaired users, their support status, and assistance needs.</li>
             </ul>
           </div>
 
@@ -264,11 +276,12 @@
             <h4>Engineering Contributions</h4>
             <ul>
               <li><strong>Built the mobile platform</strong> with Flutter/Dart, Firebase Auth, Firestore, FCM, Storage, and role-based app flow for visually impaired users and volunteers.</li>
-              <li><strong>Designed the ML service layer</strong> around isolated services for object detection, depth estimation, OCR, AI requests, TTS, local storage, and IoT communication.</li>
-              <li><strong>Implemented a round-robin fusion pipeline</strong> that alternates YOLO11s and MiDaS inference every 500ms to reduce CPU spikes on mid-range Android devices.</li>
+              <li><strong>Coordinated the user journey</strong> across navigation, obstacle warning, document reading, AI chatbot, camera-only usage, community support, SOS, and volunteer dashboard flows.</li>
+              <li><strong>Defined safety workflows</strong> for head-level, floor-level, and detailed obstacle checks, with Thai voice feedback and vibration patterns for urgent warnings.</li>
+              <li><strong>Planned emergency location behavior</strong> so SOS sends the user's current Google Maps location and volunteer requests can fall back to automatic sharing after a 30-second no-response window.</li>
               <li><strong>Added local-first reliability</strong> with Isar local storage, SharedPreferences for small flags, secure storage/encryption for sensitive data, and lifecycle-aware camera handling.</li>
               <li><strong>Improved accessibility</strong> through Thai voice announcements, semantic labels, haptic feedback, large interaction targets, and flows designed around blind-user navigation.</li>
-              <li><strong>Validated core logic</strong> with focused tests for ML math, navigation helpers, IoT telemetry parsing, data models, theme behavior, and app smoke coverage.</li>
+              <li><strong>Validated core logic</strong> with focused tests for navigation helpers, emergency flows, data models, theme behavior, and app smoke coverage.</li>
             </ul>
           </div>
           
@@ -283,16 +296,16 @@
               <span class="tag">FCM</span>
               <span class="tag">Cloud Functions</span>
               <span class="tag">TensorFlow Lite</span>
-              <span class="tag">YOLO11s</span>
               <span class="tag">MiDaS</span>
               <span class="tag">ML Kit OCR</span>
               <span class="tag">Gemini</span>
               <span class="tag">TTS / STT</span>
               <span class="tag">Camera API</span>
-              <span class="tag">ARCore / ARKit</span>
+              <span class="tag">ARCore</span>
+              <span class="tag">Location Services</span>
+              <span class="tag">Google Maps</span>
               <span class="tag">Zego UIKit</span>
               <span class="tag">Isar</span>
-              <span class="tag">ESP32 IoT</span>
               <span class="tag">Secure Storage</span>
             </div>
           </div>
