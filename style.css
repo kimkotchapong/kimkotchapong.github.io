@@ -609,6 +609,10 @@ a:hover {
   gap: 8px;
 }
 
+.exp-links {
+  margin-bottom: 16px;
+}
+
 .tag {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -619,6 +623,12 @@ a:hover {
   font-weight: 500;
   letter-spacing: 0.02em;
   transition: all var(--transition);
+}
+
+a.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
 }
 
 .tag:hover {
@@ -800,6 +810,30 @@ a:hover {
   padding-top: 2px;
 }
 
+.award-media {
+  width: 132px;
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0;
+  display: block;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-secondary);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.award-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.award-media:hover {
+  opacity: 1;
+  border-color: var(--accent);
+}
+
 .award-title {
   font-size: 1rem;
   font-weight: 600;
@@ -848,13 +882,24 @@ a:hover {
 
 .edu-logo {
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--accent-dim);
   border-radius: 12px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.edu-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  padding: 6px;
+  background: #ffffff;
 }
 
 .edu-degree {
@@ -1068,6 +1113,10 @@ a:hover {
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  .award-media {
+    width: min(100%, 260px);
   }
 
   .theme-toggle {
